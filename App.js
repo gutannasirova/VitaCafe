@@ -1,6 +1,6 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import PasswordScreen from "./screens/PasswordScreen";
+import CartScreen from "./screens/CartScreen";
 
 export default function App() {
   return (
@@ -15,6 +15,6 @@ const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => (
   <Tab.Navigator>
-    <Tab.Screen name="Password" component={PasswordScreen} />
+    <Tab.Screen name="CartScreen" component={CartScreen} />
   </Tab.Navigator>
 );
