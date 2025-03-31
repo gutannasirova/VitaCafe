@@ -1,9 +1,34 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
+import React, { useState, useRef, useEffect } from "react";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, Animated } from "react-native";
 
 const PasswordScreen = () => {
   const [newPassword, setNewPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
+
+  const spinValue = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(spinValue, {
+          toValue: 1,
+          duration: 4000, // Вращение на 180 градусов за 4 секунды
+          useNativeDriver: true,
+        }),
+        Animated.timing(spinValue, {
+          toValue: 0,
+          duration: 4000, // Возвращение обратно за 4 секунды
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  }, []);
+
+  // Интерполяция для вращения (только 180 градусов вперед-назад)
+  const spin = spinValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0deg", "-50deg"],
+  });
 
   const handleSave = () => {
     // Логика для сохранения пароля
@@ -51,6 +76,18 @@ const PasswordScreen = () => {
           <Text style={styles.buttonText}>Сохранить</Text>
         </TouchableOpacity>
       </View>
+
+      {/* Изображение Bazelik */}
+      <Animated.Image
+        source={require("./assets/Bazelik.png")}
+        style={[styles.Bazelik, { transform: [{ rotate: spin }] }]}
+      />
+
+      {/* Изображение Spinach */}
+      <Animated.Image
+        source={require("./assets/Spinach2.png")}
+        style={[styles.Spinach, { transform: [{ rotate: spin }] }]}
+      />
     </KeyboardAvoidingView>
   );
 };
@@ -58,7 +95,7 @@ const PasswordScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#FBFFFA", // Цвет фона
     justifyContent: "center",
     paddingHorizontal: 20,
   },
@@ -81,7 +118,7 @@ const styles = StyleSheet.create({
   input: {
     width: "100%",
     height: 50,
-    backgroundColor: "#fff",
+    backgroundColor: "#D9EAC9", // Цвет кнопок
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#ddd",
@@ -93,7 +130,7 @@ const styles = StyleSheet.create({
   button: {
     width: "100%",
     height: 50,
-    backgroundColor: "#76b82a",
+    backgroundColor: "#77B502", // Цвет кнопки "Сохранить"
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
@@ -103,6 +140,22 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "#fff",
+  },
+   Bazelik: {
+    position: "absolute",
+    top: "20%", // Центрирование по вертикали
+    right: 0, // Правый край экрана
+    width: 90,
+    height: 90,
+    marginTop: -25, // Смещение вверх на половину высоты для точного центрирования
+  },
+  Spinach: {
+    position: "absolute",
+    top: "80%", // Центрирование по вертикали
+    left: 0, // Левый край экрана
+    width: 70,
+    height: 70,
+    marginTop: -25, // Смещение вверх на половину высоты для точного центрирования
   },
 });
 

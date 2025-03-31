@@ -134,11 +134,11 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     popularImage: {
-        width: 220,
-        height: 180,
+        width: 200,
+        height: 160,
         resizeMode: "cover",
         left: 30,
-        bottom: 20
+        bottom: 10
     },
     popularTitle: {
         fontSize: 18,
@@ -153,8 +153,7 @@ const styles = StyleSheet.create({
         textAlign: "left",
     },
     popularPrice: {
-        fontSize: 16,
-        fontWeight: "bold",
+        fontSize: 20,
         color: "white",
     },
 });
